@@ -35,7 +35,7 @@ You can also [Click Here to Download Sample Projects](https://yehonal.github.io/
 | Value | Type    | Description                                      |
 | ----- | ------- | ------------------------------------------------ |
 | Color | Color   | The result can be used in material texture slot. |
-| UV    | Vector2 | The scaled UV that you can used in you.          |
+| UV    | Vector2 | The scaled UV.                                   |
 
 
 

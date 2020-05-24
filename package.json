@@ -1,6 +1,6 @@
 {
   "name": "sparkar-autofit",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "A Spark AR tool that keeps the texture of object in correct ratio.",
   "main": "Autofit.js",
   "author": "Pofu Lu",

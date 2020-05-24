@@ -83,11 +83,11 @@ const Scene = require('Scene');
 const Autofit = require('./Autofit');
 
 Scene.root.findFirst('plane0').then(plane0 =>
-   Autofit.fitTexture(plane0, Autofit.TextureScaleMode.fit))
+   Autofit.fitTexture(plane0, Autofit.TextureScaleMode.FIT))
 );
 
 Scene.root.findFirst('plane0').then(plane0 =>
-   Autofit.fitObject(plane0, Autofit.ObjectScaleMode.based_on_heigth))
+   Autofit.fitObject(plane0, Autofit.ObjectScaleMode.BASED_ON_HEIGHT))
 );
 
 ```

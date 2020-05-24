@@ -1,0 +1,29 @@
+{
+  "name": "sparkar-autofit",
+  "version": "0.2.0",
+  "description": "A Spark AR tool that keeps the texture of object in correct ratio.",
+  "main": "Autofit.js",
+  "author": "Pofu Lu",
+  "keywords": [
+    "sparkar",
+    "texture",
+    "scale",
+    "ration",
+    "pofu"
+  ],
+  "files": [
+    "/Autofit.js"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pofulu/sparkar-autofit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/pofulu/sparkar-autofit/issues"
+  },
+  "homepage": "https://github.com/pofulu/sparkar-autofit#readme",
+  "license": "MIT"
+}

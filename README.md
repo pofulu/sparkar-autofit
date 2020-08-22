@@ -4,7 +4,7 @@
 
 Both [Patch](#for-patch-editor) and [Script](#for-script) version are included.
 
-You can also [Click Here to Download Sample Projects](https://yehonal.github.io/DownGit/#home?url=https://github.com/pofulu/sparkar-autofit/tree/master/AutofitDemo). The [PickerHandler](https://github.com/pofulu/sparkar-picker-handler) in demo projects is not necessary, it's just used for assist in demo.
+You can also [Click Here to Download Sample Projects](https://yehonal.github.io/DownGit/#home?url=https://github.com/pofulu/sparkar-autofit/tree/master/AutofitDemo). The [PickerHandler](https://github.com/pofulu/sparkar-picker-handler) in script-usage demo projects is not necessary, it's just used to assist in demo.
 
 
 
@@ -24,18 +24,18 @@ You can also [Click Here to Download Sample Projects](https://yehonal.github.io/
 
 | Value            | Type    | Description                                                  |
 | ---------------- | ------- | ------------------------------------------------------------ |
-| Plane Scale      | Vector3 | Generally is the the scale of a **plane'**s transform, or size of **rectangle**. The **z** value is dosen't matter here actually. |
+| Plane Scale      | Vector2 | Generally is the the scale of a **plane'**s transform, or scale of **rectangle**. |
 | Texture Size     | Vector2 | The **Dimensions** value of input texture. Find the value and fill it manually. |
 | Texture          | Texture | 🖼️                                                            |
-| FIT / ENVELOPE   | Boolean | If **true**, the mode is **FIT**. If **false**, the mode is **ENVELOPE**. |
+| Expand / Shrink  | Boolean | If **true**, the mode is **Expand**. If **false**, the mode is **Shrink**. |
 | Background Color | Color   | The background color is filled in the empty space in `ENVELOPE` mode. |
 
 #### Output
 
-| Value | Type    | Description                                      |
-| ----- | ------- | ------------------------------------------------ |
-| Color | Color   | The result can be used in material texture slot. |
-| UV    | Vector2 | The scaled UV.                                   |
+| Value  | Type    | Description                                      |
+| ------ | ------- | ------------------------------------------------ |
+| Output | Texture | The result can be used in material texture slot. |
+| UV     | Vector2 | The scaled UV.                                   |
 
 
 
@@ -115,9 +115,9 @@ Scene.root.findFirst('plane0').then(plane0 =>
 
 | **Value** | Description                                                  |
 | ---------- | --------- |
-| `FIT` | Scale fit mode. |
-| `ENVELOPE` | Scale envelope mode.  |
-| `STRETCH` | Scale in strech mode. |
+| `Expand` | Scale in expand mode. |
+| `Shrink` | Scale in shrink mode. |
+| `Stretch` | Scale in strech mode. |
 
 ## Donations
 

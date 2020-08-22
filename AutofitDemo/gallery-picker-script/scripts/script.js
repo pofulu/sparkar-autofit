@@ -1,17 +1,20 @@
-const Scene = require('Scene');
 const Autofit = require('./Autofit');
+const Scene = require('Scene');
+const Reactive = require('Reactive');
 const PickerHandler = require('./PickerHandler');
 
 Scene.root.findFirst('fit_texture').then(plane => {
     Scene.root.findFirst('mode').then(mode => {
-        PickerHandler.configUsingDafault().then(() => {
-            PickerHandler.subscribeIndex(0, () => Autofit.fitTexture(plane, Autofit.TextureScaleMode.FIT));
-            PickerHandler.subscribeIndex(1, () => Autofit.fitTexture(plane, Autofit.TextureScaleMode.ENVELOPE));
-            PickerHandler.subscribeIndex(2, () => Autofit.fitTexture(plane, Autofit.TextureScaleMode.STRETCH));
+        PickerHandler.setVisible(true);
+        PickerHandler.configUsingPattern('picker_*').then(() => {
+            PickerHandler.subscribeKeywords('expand', () => { Autofit.fitTexture(plane, Autofit.TextureScaleMode.Expand) });
+            PickerHandler.subscribeKeywords('expand', () => mode.text = Autofit.TextureScaleMode.Expand);
 
-            PickerHandler.subscribeIndex(0, () => mode.text = Autofit.TextureScaleMode.FIT);
-            PickerHandler.subscribeIndex(1, () => mode.text = Autofit.TextureScaleMode.ENVELOPE);
-            PickerHandler.subscribeIndex(2, () => mode.text = Autofit.TextureScaleMode.STRETCH);
+            PickerHandler.subscribeKeywords('shrink', () => Autofit.fitTexture(plane, Autofit.TextureScaleMode.Shrink, Reactive.pack4(0, 0, 1, 0.3)));
+            PickerHandler.subscribeKeywords('shrink', () => mode.text = Autofit.TextureScaleMode.Shrink);
+
+            PickerHandler.subscribeKeywords('stretch', () => Autofit.fitTexture(plane, Autofit.TextureScaleMode.Stretch));
+            PickerHandler.subscribeKeywords('stretch', () => mode.text = Autofit.TextureScaleMode.Stretch);
         });
     });
 });

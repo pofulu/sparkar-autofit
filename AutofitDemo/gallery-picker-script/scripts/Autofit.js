@@ -37,13 +37,16 @@ export const ObjectScaleMode = {
 export const TextureScaleMode = {
     FIT: 'FIT',
     ENVELOPE: 'ENVELOPE',
-    STRETCH: 'STRETCH'
+    STRETCH: 'STRETCH',
+    Shrink: 'Shrink',
+    Expand: 'Expand',
+    Stretch: 'Stretch'
 }
 
 /**
  * @param {SceneObjectBase} sceneObject 
  * @param {ObjectScaleMode} scaleMode `AutoFit.ObjectScaleMode`
- * @returns {Promise<ScaleSignal>}
+ * @returns {Promise<PointSignal>}
  */
 export function getFitObjectScale(sceneObject, scaleMode) {
     return sceneObject.getMaterial().then(mat =>
@@ -109,37 +112,63 @@ export function getFitTextureUV(sceneObject, scaleMode) {
 
             const isShort = scaleX.gt(scaleY.mul(textureRatio));
 
+            let width = 1;
+            let height = 1;
+
+            const expand = () => {
+                const textureScale = Reactive.max(scaleHeight, scaleWidth);
+                width = isShort.ifThenElse(
+                    tex.width.mul(textureScale).div(textureRatio),
+                    tex.width.mul(textureScale).mul(Reactive.div(scaleY, scaleX))
+                );
+                height = isShort.ifThenElse(
+                    tex.height.mul(textureScale).mul(Reactive.div(scaleX, scaleY)).div(textureRatio),
+                    tex.height.mul(textureScale)
+                );
+            }
+
+            const shrink = () => {
+                const textureScale = Reactive.min(scaleHeight, scaleWidth);
+                width = isShort.ifThenElse(
+                    tex.width.mul(textureScale).mul(Reactive.div(scaleY, scaleX)),
+                    tex.width.mul(textureScale).div(textureRatio)
+                );
+                height = isShort.ifThenElse(
+                    tex.height.mul(textureScale),
+                    tex.height.mul(textureScale).mul(Reactive.div(scaleX, scaleY)).div(textureRatio)
+                );
+            }
+
             switch (scaleMode) {
                 case TextureScaleMode.FIT:
-                    var textureScale = Reactive.max(scaleHeight, scaleWidth);
-                    var width = isShort.ifThenElse(
-                        tex.width.mul(textureScale).div(textureRatio),
-                        tex.width.mul(textureScale).mul(Reactive.div(scaleY, scaleX))
-                    );
-                    var height = isShort.ifThenElse(
-                        tex.height.mul(textureScale).mul(Reactive.div(scaleX, scaleY)).div(textureRatio),
-                        tex.height.mul(textureScale)
-                    );
-
+                    expand();
+                    Diagnostics.log(`'TextureScaleMode.FIT' is obsolete. Use 'TextureScaleMode.Expand' instead`)
                     break;
 
                 case TextureScaleMode.ENVELOPE:
-                    var textureScale = Reactive.min(scaleHeight, scaleWidth);
-                    var width = isShort.ifThenElse(
-                        tex.width.mul(textureScale).mul(Reactive.div(scaleY, scaleX)),
-                        tex.width.mul(textureScale).div(textureRatio)
-                    );
-                    var height = isShort.ifThenElse(
-                        tex.height.mul(textureScale),
-                        tex.height.mul(textureScale).mul(Reactive.div(scaleX, scaleY)).div(textureRatio)
-                    );
-
+                    shrink();
+                    Diagnostics.log(`'TextureScaleMode.Shrink' is obsolete. Use 'TextureScaleMode.Shrink' instead`)
                     break;
 
                 case TextureScaleMode.STRETCH:
-                    var width = 1;
-                    var height = 1;
+                    width = 1;
+                    height = 1;
+                    Diagnostics.log(`'TextureScaleMode.STRETCH' is obsolete. Use 'TextureScaleMode.Stretch' instead`)
                     break;
+
+                case TextureScaleMode.Expand:
+                    expand();
+                    break;
+
+                case TextureScaleMode.Shrink:
+                    shrink();
+                    break;
+
+                case TextureScaleMode.Stretch:
+                    width = 1;
+                    height = 1;
+                    break;
+
 
                 default:
                     Diagnostics.log(`Invaild scale mode.`);
